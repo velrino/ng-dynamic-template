@@ -7,7 +7,7 @@ const routes: Routes = [
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
   },
   {
-    path: ':dynamic',
+    path: ':client',
     loadChildren: () => import('./site/site.module').then(m => m.SiteModule)
   },
   { path: '', redirectTo: 'admin', pathMatch: 'full' }
