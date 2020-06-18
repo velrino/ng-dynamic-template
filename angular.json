@@ -28,9 +28,16 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/assets/template/admin/assets/css/bootstrap.min.css",
+              "src/assets/template/admin/assets/css/light-bootstrap-dashboard.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/template/admin/assets/js/core/jquery.3.2.1.min.js",
+              "src/assets/template/admin/assets/js/core/popper.min.js",
+              "src/assets/template/admin/assets/js/core/bootstrap.min.js",
+              "src/assets/template/admin/assets/js/light-bootstrap-dashboard.js"
+            ]
           },
           "configurations": {
             "production": {
