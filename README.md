@@ -2,6 +2,9 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.0.
 
+https://drawsql.app/velrino/diagrams/ng-dynamic-template#
+
+# Examples
 HomePage of site lorem <br>
 https://velrino.github.io/ng-dynamic-template/lorem <br>
 <br><br>
