@@ -25,7 +25,7 @@ export class SiteHomePage implements OnInit {
   }
 
   async getData() {
-    const { error, result } = await this._requestService.request('/assets/data/page.json');
+    const { error, result } = await this._requestService.request('assets/data/page.json');
 
     if (!error && result[this.component.client]['home']) {
       const data = result[this.component.client]['home'];

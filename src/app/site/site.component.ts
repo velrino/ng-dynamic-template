@@ -31,7 +31,7 @@ export class SiteComponent implements OnInit {
     }
 
     async getData() {
-        const { error, result } = await this._requestService.request('/assets/data/page.json');
+        const { error, result } = await this._requestService.request('assets/data/page.json');
 
         if (!error && result[this.component.client]) {
             const data = result[this.component.client];
