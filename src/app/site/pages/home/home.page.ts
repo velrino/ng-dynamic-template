@@ -13,6 +13,7 @@ export class SiteHomePage implements OnInit {
     client: '',
     data: null,
     template: '',
+    page: 'home',
   }
 
   constructor(private _requestService: RequestService) {
@@ -25,12 +26,16 @@ export class SiteHomePage implements OnInit {
   }
 
   async getData() {
-    const { error, result } = await this._requestService.request('assets/data/page.json');
+    const { client, page } = this.component;
 
-    if (!error && result[this.component.client]['home']) {
-      const data = result[this.component.client]['home'];
-      this.component.data = data;
-      this.component.template = data['template'];
+    const url = `http://localhost:3000/api/template?filter=type||eq||${page}&filter=company.slug||eq||${client}&limit=1`;
+
+    const { error, result } = await this._requestService.request(url);
+
+    if (!error && result) {
+      const { data } = result;
+      this.component.data = data[0];
+      this.component.template = data[0]['html'];
     }
   }
 }
