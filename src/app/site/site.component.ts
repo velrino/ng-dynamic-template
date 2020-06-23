@@ -26,17 +26,17 @@ export class SiteComponent implements OnInit {
             EventEmitterService.get(EventEmitterServiceEnum.dynamic)
                 .emit(params['client']);
             this.component.client = params['client'];
-            this.getData();
+            // this.getData();
         });
     }
 
-    async getData() {
-        const { error, result } = await this._requestService.request('assets/data/page.json');
+    // async getData() {
+    //     const { error, result } = await this._requestService.request('assets/data/page.json');
 
-        if (!error && result[this.component.client]) {
-            const data = result[this.component.client];
-            this.component.data = data;
-            this.component.template = data['template'];
-        }
-    }
+    //     if (!error && result[this.component.client]) {
+    //         const data = result[this.component.client];
+    //         this.component.data = data;
+    //         this.component.template = data['template'];
+    //     }
+    // }
 }
