@@ -1,27 +1,20 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { SiteComponent } from './site.component';
-import { SiteHomePage } from './pages/home/home.page';
+import { SiteCampaignPage } from './pages/campaign/campaign.page';
 
 const routes: Routes = [
     {
         path: '',
-        component: SiteComponent,
         children: [
-            { path: 'home', component: SiteHomePage },
+            { path: 'c/:campaign', component: SiteCampaignPage },
         ]
     },
     { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 
 export const SitePages = [
-    SiteComponent,
-    SiteHomePage,
-];
-
-export const SiteBootstrap = [
-    SiteComponent,
+    SiteCampaignPage,
 ];
 
 @NgModule({
