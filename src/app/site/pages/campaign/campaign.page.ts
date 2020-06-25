@@ -15,6 +15,10 @@ export class SiteCampaignPage implements OnInit {
     data: null,
     template: '',
     page: 'home',
+    layout: {
+      template: '',
+      pledge: '',
+    }
   }
 
   constructor(private route: ActivatedRoute, private _requestService: RequestService) {
@@ -45,7 +49,37 @@ export class SiteCampaignPage implements OnInit {
     if (!error && result) {
       const { data } = result;
       this.component.data = result;
-      this.component.template = result['template']['html'];
+      this.component.template = this.prepareTemplate();
     }
+  }
+
+  replaceCumulative(str, find, replace): string {
+    for (var i = 0; i < find.length; i++)
+      str = str.replace(new RegExp(find[i], "g"), replace[i]);
+    return str;
+  }
+
+  prepareTemplate(): string {
+    const pledge = this.prepareTemplatePledge();
+    return this.replaceCumulative(
+      this.component.data.template.html,
+      ["PLEDGE"],
+      [pledge]
+    );
+  }
+
+  prepareTemplatePledge(): string {
+    let template = '';
+    const { pledge } = this.component.data;
+    for (let index = 0; index < pledge.length; index++) {
+      const item = pledge[index];
+      template += this.replaceCumulative(
+        item.template.html,
+        ["NAME", "BODY"],
+        [item.name, item.body]
+      );
+    }
+    console.log(template);
+    return template;
   }
 }
