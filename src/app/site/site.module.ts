@@ -4,13 +4,13 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { SitePages, SiteRoutingModule } from './site.routing.module';
 import { SafePipe } from 'src/app/shared/pipes/safe/safe.pipe';
-import { HtmlOutletDirective } from '../shared/directives/dynamic-component/dynamic-component.directive';
+import { DynamicTemplateDirective } from '../shared/directives/dynamic-component/dynamic-component.directive';
 
 @NgModule({
     declarations: [
         ...SitePages,
         SafePipe,
-        HtmlOutletDirective
+        DynamicTemplateDirective
     ],
     imports: [
         CommonModule,

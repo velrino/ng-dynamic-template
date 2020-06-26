@@ -4,43 +4,44 @@ import { CommonModule } from '@angular/common';
 @Directive({
     selector: 'html-outlet'
 })
-export class HtmlOutletDirective {
+export class DynamicTemplateDirective {
 
-    @Input() html: string;
-    // @Input() styleArticle: string;
+    @Input() template: string;
+    @Input() script: any;
+    @Input() style: string;
 
     constructor(
         private _viewContainerRef: ViewContainerRef,
         private _compiler: Compiler) { }
 
     ngOnChanges() {
-        const template = this.html;
-        // const style = this.styleArticle;
+        const { template, style, script } = this;
 
         @Component({
-            selector: 'dynamic-article',
-            template: template,
-            // styles: [style],
+            selector: 'dynamic-html',
+            template,
+            styles: [style],
             encapsulation: ViewEncapsulation.None,
         })
-        class DynamicArticleComponent {
-            name = 'dsd';
-            condition = true
-        };
+        class DynamicTemplateComponent { };
 
         @NgModule({
-            imports: [
-                CommonModule,
-            ],
-            declarations: [DynamicArticleComponent]
+            imports: [CommonModule],
+            declarations: [DynamicTemplateComponent]
         })
-        class DynamicArticleModule { };
-        this._compiler.compileModuleAndAllComponentsAsync(DynamicArticleModule)
+        class DynamicTemplateModule { };
+        this._compiler.compileModuleAndAllComponentsAsync(DynamicTemplateModule)
             .then(factory => {
                 const compFactory = factory.componentFactories.find(comp =>
-                    comp.componentType === DynamicArticleComponent);
-                const teste = this._viewContainerRef.createComponent(compFactory, 0);
-                // teste.instance.name = "fdfdfd"
+                    comp.componentType === DynamicTemplateComponent);
+                const componentInstance = this._viewContainerRef.createComponent(compFactory, 0);
+                if (script) {
+                    const scriptsArray = Object.keys(this.script);
+                    for (let index = 0; index < scriptsArray.length; index++) {
+                        const scriptItem = scriptsArray[index];
+                        componentInstance.instance[scriptItem] = script[scriptItem]
+                    }
+                }
             });
     }
 }

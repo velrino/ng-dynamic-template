@@ -14,13 +14,15 @@ export class SiteCampaignPage implements OnInit {
     campaign: '',
     data: null,
     template: '',
+    style: '',
+    script: null,
     page: 'home',
     layout: {
       template: '',
       pledge: '',
     }
   }
-  styleContent = {};
+  script: any;
   constructor(private route: ActivatedRoute, private _requestService: RequestService, private componentFactoryResolver: ComponentFactoryResolver, public viewContainerRef: ViewContainerRef) {
     EventEmitterService.get(EventEmitterServiceEnum.dynamic)
       .subscribe((data: string) => this.component.campaign = data);
@@ -50,6 +52,10 @@ export class SiteCampaignPage implements OnInit {
       const { data } = result;
       this.component.data = result;
       this.component.template = this.component.data.template.html;
+      this.component.script = {
+        name: 'lorem',
+        lorem: 'ipsum',
+      }
     }
   }
 }
