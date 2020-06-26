@@ -14,8 +14,7 @@ const routes: Routes = [
 ];
 
 export const SitePages = [
-    SiteCampaignPage,
-];
+    SiteCampaignPage];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],

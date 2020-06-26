@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ComponentFactoryResolver, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { EventEmitterService, EventEmitterServiceEnum } from "src/app/site/shared/services/event-emitter/event-emitter.service";
@@ -20,8 +20,8 @@ export class SiteCampaignPage implements OnInit {
       pledge: '',
     }
   }
-
-  constructor(private route: ActivatedRoute, private _requestService: RequestService) {
+  styleContent = {};
+  constructor(private route: ActivatedRoute, private _requestService: RequestService, private componentFactoryResolver: ComponentFactoryResolver, public viewContainerRef: ViewContainerRef) {
     EventEmitterService.get(EventEmitterServiceEnum.dynamic)
       .subscribe((data: string) => this.component.campaign = data);
   }
@@ -49,37 +49,7 @@ export class SiteCampaignPage implements OnInit {
     if (!error && result) {
       const { data } = result;
       this.component.data = result;
-      this.component.template = this.prepareTemplate();
+      this.component.template = this.component.data.template.html;
     }
-  }
-
-  replaceCumulative(str, find, replace): string {
-    for (var i = 0; i < find.length; i++)
-      str = str.replace(new RegExp(find[i], "g"), replace[i]);
-    return str;
-  }
-
-  prepareTemplate(): string {
-    const pledge = this.prepareTemplatePledge();
-    return this.replaceCumulative(
-      this.component.data.template.html,
-      ["PLEDGE"],
-      [pledge]
-    );
-  }
-
-  prepareTemplatePledge(): string {
-    let template = '';
-    const { pledge } = this.component.data;
-    for (let index = 0; index < pledge.length; index++) {
-      const item = pledge[index];
-      template += this.replaceCumulative(
-        item.template.html,
-        ["NAME", "BODY"],
-        [item.name, item.body]
-      );
-    }
-    console.log(template);
-    return template;
   }
 }
