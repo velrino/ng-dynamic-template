@@ -3,6 +3,10 @@ import { CommonModule } from '@angular/common';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { MonacoEditorModule } from 'ngx-monaco-editor';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
 
 import { SitePages, SiteRoutingModule } from './site.routing.module';
 import { SafePipe } from '../shared/pipes/safe/safe.pipe';
@@ -27,8 +31,12 @@ import { DynamicTemplateDirective } from '../shared/directives/dynamic-component
             storageBucket: "itau-4aeae.appspot.com",
             messagingSenderId: "1060157719005",
             appId: "1:1060157719005:web:29848fc2b2572a6d07b634"
-          }, 'itau'),
-          AngularFireDatabaseModule
+        }, 'itau'),
+        AngularFireDatabaseModule,
+        MonacoEditorModule.forRoot(),
+        DragDropModule,
+        NgbModule,
+        FormsModule
     ],
 })
 export class SiteModule { }

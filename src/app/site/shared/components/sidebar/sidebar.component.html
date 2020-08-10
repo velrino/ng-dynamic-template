@@ -1,0 +1,147 @@
+<div class="d-flex justify-content-center editor-btn">
+    <button type="button" class="btn btn-info text-white position-absolute bg-info border-0 rounded-0 rounded-bottom"
+        (click)="toggleModal(content)">{{ !show ? 'Abrir' : 'Fechar'}} Editor</button>
+</div>
+<ng-template #content let-modal>
+    <div class="editor-modal-class" cdkDrag cdkDragRootElement=".editor-modal-class">
+        <div class="modal-header cursor_move" cdkDragHandle>
+            <h4 class="modal-title" id="modal-basic-title">
+                Editor
+            </h4>
+            <button type="button" class="close clickable" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <nav class="container-fluid bg-dark height-vh">
+                <ul ngbNav #nav="ngbNav" class="nav-tabs nav bg-dark pt-2">
+                    <li [ngbNavItem]="3">
+                        <a ngbNavLink>HTML</a>
+                        <ng-template ngbNavContent>
+                            <div class="my-2">
+                                <ngx-monaco-editor class="my-code-editor" [options]="htmlEditorOptions"
+                                    [(ngModel)]="data.html"></ngx-monaco-editor>
+                            </div>
+                        </ng-template>
+                    </li>
+                    <li [ngbNavItem]="4">
+                        <a ngbNavLink>SCSS</a>
+                        <ng-template ngbNavContent>
+                            <div class="my-2">
+                                <ngx-monaco-editor class="my-code-editor" [options]="cssEditorOptions"
+                                    [(ngModel)]="data.css"></ngx-monaco-editor>
+                            </div>
+                        </ng-template>
+                    </li>
+                    <li [ngbNavItem]="5">
+                        <a ngbNavLink>TS</a>
+                        <ng-template ngbNavContent>
+                            <div class="my-2">
+                                <ngx-monaco-editor class="my-code-editor" [options]="jsEditorOptions"
+                                    [(ngModel)]="data.script"></ngx-monaco-editor>
+                            </div>
+                        </ng-template>
+                    </li>
+                    <li [ngbNavItem]="1" *ngIf="example">
+                        <a ngbNavLink>Data</a>
+                        <ng-template ngbNavContent>
+                            <div class="my-2">
+                                <ngx-monaco-editor class="my-code-editor" [options]="jsonEditorOptions"
+                                    [(ngModel)]="example">
+                                </ngx-monaco-editor>
+                            </div>
+                        </ng-template>
+                    </li>
+                    <li [ngbNavItem]="2">
+                        <a ngbNavLink>Parâmetros</a>
+                        <ng-template ngbNavContent>
+                            <div class="my-2">
+                                <ngx-monaco-editor class="my-code-editor" [options]="jsEditorOptions"
+                                    [(ngModel)]="data.parameters">
+                                </ngx-monaco-editor>
+                            </div>
+                        </ng-template>
+                    </li>
+                    <li [ngbNavItem]="6">
+                        <a ngbNavLink>Others</a>
+                        <ng-template ngbNavContent>
+                            <div class="row text-white">
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="formSelectVersion">Version</label>
+                                        <select class="form-control" id="formSelectVersion"
+                                            [(ngModel)]="selectedComponent" (change)="defineComponent()">
+                                            <option *ngFor="let component of page.components"
+                                                [ngClass]="{'font-weight-bold': component.isPublished}"
+                                                [ngValue]="component">
+                                                {{component.createdAt | date:'dd/MM/yyyy - HH:mm:ss'}} -
+                                                {{component.isPublished ? "Publicado" : 'Rascunho'}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect1">Tema</label>
+                                        <select class="form-control" id="exampleFormControlSelect1"
+                                            [(ngModel)]="selectedTheme" (change)="previewTheme()">
+                                            <option value="">Sem tema</option>
+                                            <option *ngFor="let item of themes" [ngValue]="item">{{item.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </li>
+                    <li [ngbNavItem]="7">
+                        <a ngbNavLink>Criar página</a>
+                        <ng-template ngbNavContent>
+                            <div class="row text-white">
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="formCreatePageName">Nome</label>
+                                        <input type="text" [(ngModel)]="formCreatePage.name" class="form-control"
+                                            id="formCreatePageName" placeholder="Nome da página">
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="formCreatePageType">Tipo</label>
+                                        <select class="form-control" id="formCreatePageType"
+                                            [(ngModel)]="formCreatePage.type">
+                                            <option *ngFor="let pageType of pageTypes" [ngValue]="pageType">{{pageType}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-4" *ngIf="createPageCheckNeedPath()">
+                                    <div class="form-group">
+                                        <label for="formCreatePagePath">Path</label>
+                                        <input type="text" class="form-control" id="formCreatePagePath"
+                                            placeholder="Path da página" [(ngModel)]="formCreatePage.path">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row d-flex justify-content-center mb-5">
+                                <button type="button" class="btn btn-success text-white bg-success"
+                                    (click)="createPage()">Criar página</button>
+                            </div>
+                        </ng-template>
+                    </li>
+                </ul>
+                <div [ngbNavOutlet]="nav"></div>
+                <div class="pb-2 d-flex justify-content-center">
+                    <button type="button" class="btn btn-success text-white bg-success"
+                        (click)="campaignUpdateTemplate()">Aplicar</button>
+                    <button type="button" class="btn btn-success text-white bg-success mx-2"
+                        (click)="sync(false)">Salvar</button>
+                    <button type="button" class="btn btn-primary text-white bg-primary mx-2" (click)="submit()">Salvar
+                        como tema</button>
+                    <button type="button" class="btn btn-warning text-white bg-warning"
+                        (click)="sync(true)">Publicar</button>
+                </div>
+            </nav>
+        </div>
+    </div>
+</ng-template>

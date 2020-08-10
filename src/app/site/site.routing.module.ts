@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { SiteCampaignPage } from './pages/campaign/campaign.page';
+import { SiteSidebarComponent } from '../site/shared/components/sidebar/sidebar.component';
 
 const routes: Routes = [
     {
@@ -14,7 +15,9 @@ const routes: Routes = [
 ];
 
 export const SitePages = [
-    SiteCampaignPage];
+    SiteSidebarComponent,
+    SiteCampaignPage
+];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],

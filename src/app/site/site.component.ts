@@ -25,7 +25,6 @@ export class SiteComponent implements OnInit {
         this.route.params.subscribe(params => {
             EventEmitterService.get(EventEmitterServiceEnum.dynamic)
                 .emit(params['campaign']);
-                console.log(params['campaign'])
             this.component.client = params['campaign'];
             // this.getData();
         });
