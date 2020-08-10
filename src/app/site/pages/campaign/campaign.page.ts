@@ -48,7 +48,11 @@ export class SiteCampaignPage implements OnInit {
 
       if (this.hasPage) {
         const index = Object.keys(snap.val());
-        this.defineData(snap.val()[index[0]])
+        const data = snap.val()[index[0]]
+
+        this.component.data = data;
+        this.component.template = data.html;
+        this.component.script = data.script
       }
     })
   }
@@ -58,6 +62,7 @@ export class SiteCampaignPage implements OnInit {
 
     setTimeout(() => {
       this.show = true;
+      console.log('lorem')
 
       this.component.data = data;
       this.component.template = data.html;
