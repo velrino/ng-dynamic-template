@@ -130,6 +130,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "ng-dynamic-template"
+    }
+  },
+  "defaultProject": "ng-dynamic-template",
+  "cli": {
+    "analytics": false
+  }
 }

@@ -1,8 +1,8 @@
 import { Component, OnInit, ComponentFactoryResolver, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { EventEmitterService, EventEmitterServiceEnum } from "src/app/site/shared/services/event-emitter/event-emitter.service";
-import { RequestService } from 'src/app/site/shared/services/request/request.service';
+import { EventEmitterService, EventEmitterServiceEnum } from "../../shared/services/event-emitter/event-emitter.service";
+import { RequestService } from '../../shared/services/request/request.service';
 
 @Component({
   selector: 'app-site-campaign',
