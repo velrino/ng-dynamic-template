@@ -30,12 +30,7 @@ export class SiteSidebarComponent implements OnChanges {
 
     constructor(private modalService: NgbModal) { }
 
-    // ngOnInit() {
-    //     this.handleData();
-    // }
-
     ngOnChanges() {
-        console.log(this.data)
         this.handleData();
     }
 
