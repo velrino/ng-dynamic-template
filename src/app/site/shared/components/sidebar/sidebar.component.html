@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-center editor-btn">
-    <button type="button" class="btn btn-info text-white position-absolute bg-info border-0 rounded-0 rounded-bottom"
+    <button type="button" class="btn btn-info text-white position-absolute bg-info border-0 rounded-0 rounded-bottom" style="z-index: 9999999999999999999999999999;"
         (click)="toggleModal(content)">{{ !show ? 'Abrir' : 'Fechar'}} Editor</button>
 </div>
 <ng-template #content let-modal>
@@ -34,10 +34,10 @@
                         </ng-template>
                     </li>
                     <li [ngbNavItem]="5">
-                        <a ngbNavLink>TS</a>
+                        <a ngbNavLink>JSON</a>
                         <ng-template ngbNavContent>
                             <div class="my-2">
-                                <ngx-monaco-editor class="my-code-editor" [options]="jsEditorOptions"
+                                <ngx-monaco-editor class="my-code-editor" [options]="jsonEditorOptions"
                                     [(ngModel)]="data.script"></ngx-monaco-editor>
                             </div>
                         </ng-template>

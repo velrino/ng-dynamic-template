@@ -34,6 +34,7 @@ export class SiteSidebarComponent implements OnChanges {
 
     ngOnChanges() {
         this.handleData();
+        this.data.script = JSON.stringify(this.data.script, null, "\t")
     }
 
     handleData() {
