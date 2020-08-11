@@ -50,6 +50,7 @@ export class SiteDynamicPage implements OnInit {
 
         this.component.data = data;
         this.component.template = data.html;
+        this.component.style = data.css;
         this.component.script = (data.script) ? data.script : {}
         this.show = true;
 
@@ -65,6 +66,7 @@ export class SiteDynamicPage implements OnInit {
 
       this.component.data = data;
       this.component.template = data.html;
+      this.component.style = data.css;
       this.component.script = (data.script) ? data.script : {}
     }, 1)
   }
