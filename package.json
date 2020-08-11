@@ -8,8 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy": "ng build --prod --baseHref='https://velrino.github.io/ng-dynamic-template/' && npm run upload",
-    "upload": "npx ngh --repo=git@github.com:velrino/ng-dynamic-template.git --name=velrino --email=denismagalhaesvelrino@gmail.com  --branch=gh-pages --dir=dist/"
+    "deploy": "ng build --prod && npm run upload",
+    "upload": "npx ngh --repo=git@github.com:ng-dynamic-template/ng-dynamic-template.github.io.git --name=velrino --email=denismagalhaesvelrino@gmail.com  --branch=master --dir=dist/"
   },
   "private": true,
   "dependencies": {

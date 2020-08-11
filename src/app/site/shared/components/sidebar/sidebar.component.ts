@@ -24,7 +24,7 @@ export class SiteSidebarComponent implements OnChanges {
     page: any;
     htmlEditorOptions = { theme: 'vs-dark', language: 'html' };
     cssEditorOptions = { theme: 'vs-dark', language: 'css' };
-    jsonEditorOptions = { theme: 'vs-dark', language: 'json', readOnly: true };
+    jsonEditorOptions = { theme: 'vs-dark', language: 'json'};
     jsEditorOptions = { theme: 'vs-dark', language: 'json' };
     componentIsPublished: boolean = false;
     versions: any[] = [];
@@ -42,6 +42,7 @@ export class SiteSidebarComponent implements OnChanges {
     }
 
     campaignUpdateTemplate() {
+        this.data.script = JSON.parse(this.data.script),
         EventEmitterService.get(EventEmitterServiceEnum.dynamic).emit(this.data);
     }
 
@@ -92,6 +93,7 @@ export class SiteSidebarComponent implements OnChanges {
     async createComponent() {
         const body = {
             ...this.data,
+            script: JSON.parse(this.data.script),
             isPublished: this.componentIsPublished,
             createdAt: new Date().toISOString()
         };
