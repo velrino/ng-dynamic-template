@@ -32,8 +32,6 @@ export class SiteDynamicPage implements OnInit {
 
   getCampaign() {
     this.route.params.subscribe(params => {
-      EventEmitterService.get(EventEmitterServiceEnum.dynamic)
-        .emit(params['campaign']);
       this.component.campaign = params['campaign'];
       this.getData();
     });
@@ -52,7 +50,9 @@ export class SiteDynamicPage implements OnInit {
 
         this.component.data = data;
         this.component.template = data.html;
-        this.component.script = data.script
+        this.component.script = (data.script) ? data.script : {}
+        this.show = true;
+
       }
     })
   }
@@ -65,7 +65,7 @@ export class SiteDynamicPage implements OnInit {
 
       this.component.data = data;
       this.component.template = data.html;
-      this.component.script = data.script
+      this.component.script = (data.script) ? data.script : {}
     }, 1)
   }
 }
