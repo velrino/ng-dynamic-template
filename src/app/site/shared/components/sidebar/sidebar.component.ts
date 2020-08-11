@@ -10,7 +10,6 @@ import { FirebaseDatabaseService } from '../../../../shared/services/firebase/fi
 })
 export class SiteSidebarComponent implements OnChanges {
     @Input() data: any;
-    @Input() type: string = 'campaign';
     rows = 15;
     show = false;
     saveAsTheme = false;
@@ -49,7 +48,6 @@ export class SiteSidebarComponent implements OnChanges {
         this.componentIsPublished = isPublished;
         await this.createComponent();
         await this.updateCampaign();
-        // this.campaignUpdateTemplate();
     }
 
     defineComponent() {
@@ -61,7 +59,7 @@ export class SiteSidebarComponent implements OnChanges {
 
     }
 
-    async updateComponent(component: any, type: 'campaign' | 'pledge') {
+    async updateComponent(component: any) {
         const { id } = component;
         if (id) {
             const { selectedTheme } = this;
@@ -127,14 +125,21 @@ export class SiteSidebarComponent implements OnChanges {
     }
 
     formCreatePage = {
-        name: null,
         path: null,
-        type: null,
     }
     async createPageApi() {
-        const body = {
-            ...this.formCreatePage,
-            site: this.data.site.id
+        const { path } = this.formCreatePage;
+        if (path !== null) {
+            const body = {
+                path,
+                script: {},
+                css: {},
+                html: `<h1>Nova Página da URL ${path}</h1>`,
+                isPublished: true,
+                createdAt: new Date().toISOString(),
+            }
+            this._firebaseDatabaseService.insert('pages', body);
+            window.location.href = `${window.location.origin}/${path}`
         }
     }
 
@@ -145,7 +150,6 @@ export class SiteSidebarComponent implements OnChanges {
 
                 if (snap.val() !== null) {
                     this.versions = Object.keys(snap.val()).map(item => snap.val()[item]);
-                    console.log(this.versions)
                 }
             })
         }

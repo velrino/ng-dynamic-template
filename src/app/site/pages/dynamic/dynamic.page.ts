@@ -6,12 +6,12 @@ import { RequestService } from '../../shared/services/request/request.service';
 import { FirebaseDatabaseService } from '../../../shared/services/firebase/firebase.service';
 
 @Component({
-  selector: 'app-site-campaign',
-  templateUrl: './campaign.page.html',
-  styleUrls: ['./campaign.page.scss'],
+  selector: 'app-site-dynamic',
+  templateUrl: './dynamic.page.html',
+  styleUrls: ['./dynamic.page.scss'],
   providers: [FirebaseDatabaseService]
 })
-export class SiteCampaignPage implements OnInit {
+export class SiteDynamicPage implements OnInit {
   component = {
     campaign: '',
     data: null,
@@ -48,7 +48,7 @@ export class SiteCampaignPage implements OnInit {
 
       if (this.hasPage) {
         const index = Object.keys(snap.val());
-        const data = snap.val()[index[index.length-1]]
+        const data = snap.val()[index[index.length - 1]]
 
         this.component.data = data;
         this.component.template = data.html;

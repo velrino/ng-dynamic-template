@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { SiteCampaignPage } from './pages/campaign/campaign.page';
+import { SiteDynamicPage } from './pages/dynamic/dynamic.page';
 import { SiteSidebarComponent } from '../site/shared/components/sidebar/sidebar.component';
 
 const routes: Routes = [
     {
-        path: '',
+        path: '', 
         children: [
-            { path: 'c/:campaign', component: SiteCampaignPage },
+            { path: ':campaign', component: SiteDynamicPage },
         ]
     },
     { path: '', redirectTo: 'home', pathMatch: 'full' }
@@ -16,7 +16,7 @@ const routes: Routes = [
 
 export const SitePages = [
     SiteSidebarComponent,
-    SiteCampaignPage
+    SiteDynamicPage
 ];
 
 @NgModule({

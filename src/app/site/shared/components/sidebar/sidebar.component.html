@@ -73,28 +73,11 @@
                             </div>
                         </ng-template>
                     </li>
-                    <!-- <li [ngbNavItem]="7">
+                    <li [ngbNavItem]="7">
                         <a ngbNavLink>Criar página</a>
                         <ng-template ngbNavContent>
                             <div class="row text-white">
                                 <div class="col-4">
-                                    <div class="form-group">
-                                        <label for="formCreatePageName">Nome</label>
-                                        <input type="text" [(ngModel)]="formCreatePage.name" class="form-control"
-                                            id="formCreatePageName" placeholder="Nome da página">
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <label for="formCreatePageType">Tipo</label>
-                                        <select class="form-control" id="formCreatePageType"
-                                            [(ngModel)]="formCreatePage.type">
-                                            <option *ngFor="let pageType of pageTypes" [ngValue]="pageType">{{pageType}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-4" *ngIf="createPageCheckNeedPath()">
                                     <div class="form-group">
                                         <label for="formCreatePagePath">Path</label>
                                         <input type="text" class="form-control" id="formCreatePagePath"
@@ -104,10 +87,10 @@
                             </div>
                             <div class="row d-flex justify-content-center mb-5">
                                 <button type="button" class="btn btn-success text-white bg-success"
-                                    (click)="createPage()">Criar página</button>
+                                    (click)="createPageApi()">Criar página</button>
                             </div>
                         </ng-template>
-                    </li> -->
+                    </li>
                 </ul>
                 <div [ngbNavOutlet]="nav"></div>
                 <div class="pb-2 d-flex justify-content-center">
