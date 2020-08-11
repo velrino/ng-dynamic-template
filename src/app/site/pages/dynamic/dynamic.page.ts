@@ -62,12 +62,12 @@ export class SiteDynamicPage implements OnInit {
     this.show = false;
 
     setTimeout(() => {
-      this.show = true;
-
       this.component.data = data;
       this.component.template = data.html;
       this.component.style = data.css;
       this.component.script = (data.script) ? data.script : {}
+      this.show = true;
+
     }, 1)
   }
 }

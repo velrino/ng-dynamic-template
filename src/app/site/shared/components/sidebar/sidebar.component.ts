@@ -32,18 +32,21 @@ export class SiteSidebarComponent implements OnChanges {
     constructor(private modalService: NgbModal,
         private _firebaseDatabaseService: FirebaseDatabaseService) { }
 
-    ngOnChanges() {
-        this.handleData();
-        this.data.script = JSON.stringify(this.data.script, null, "\t")
-    }
-
-    handleData() {
+    ngOnInit() {
         this.getPage();
     }
 
+    ngOnChanges() {
+        this.handleData();
+    }
+
+    handleData() {
+        this.data.script = JSON.stringify(this.data.script, null, "\t")
+    }
+
     campaignUpdateTemplate() {
-        this.data.script = this.data.script ? JSON.parse(this.data.script) : {},
-            EventEmitterService.get(EventEmitterServiceEnum.dynamic).emit(this.data);
+        this.data.script = this.IsJsonString(this.data.script) ? JSON.parse(this.data.script) : this.data.script;
+        EventEmitterService.get(EventEmitterServiceEnum.dynamic).emit(this.data);
     }
 
     async sync(isPublished: boolean = false) {
@@ -53,12 +56,19 @@ export class SiteSidebarComponent implements OnChanges {
     }
 
     defineComponent() {
-        this.data = this.selectedComponent;
-        this.campaignUpdateTemplate();
+        setTimeout(() => {
+            this.data = this.selectedComponent;
+            this.campaignUpdateTemplate();
+        }, 100)
     }
 
-    async getComponent(id: string) {
-
+    IsJsonString(str) {
+        try {
+            JSON.parse(str);
+        } catch (e) {
+            return false;
+        }
+        return true;
     }
 
     async updateComponent(component: any) {
