@@ -48,7 +48,7 @@ export class SiteCampaignPage implements OnInit {
 
       if (this.hasPage) {
         const index = Object.keys(snap.val());
-        const data = snap.val()[index[0]]
+        const data = snap.val()[index[index.length-1]]
 
         this.component.data = data;
         this.component.template = data.html;
@@ -62,7 +62,6 @@ export class SiteCampaignPage implements OnInit {
 
     setTimeout(() => {
       this.show = true;
-      console.log('lorem')
 
       this.component.data = data;
       this.component.template = data.html;

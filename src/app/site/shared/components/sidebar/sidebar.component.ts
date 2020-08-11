@@ -2,6 +2,7 @@ import { Component, Input, OnInit, OnChanges } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { EventEmitterService, EventEmitterServiceEnum } from '../../../shared/services/event-emitter/event-emitter.service';
+import { FirebaseDatabaseService } from '../../../../shared/services/firebase/firebase.service';
 
 @Component({
     selector: 'app-site-sidebar',
@@ -27,8 +28,10 @@ export class SiteSidebarComponent implements OnChanges {
     jsonEditorOptions = { theme: 'vs-dark', language: 'json', readOnly: true };
     jsEditorOptions = { theme: 'vs-dark', language: 'json' };
     componentIsPublished: boolean = false;
+    versions: any[] = [];
 
-    constructor(private modalService: NgbModal) { }
+    constructor(private modalService: NgbModal,
+        private _firebaseDatabaseService: FirebaseDatabaseService) { }
 
     ngOnChanges() {
         this.handleData();
@@ -50,11 +53,7 @@ export class SiteSidebarComponent implements OnChanges {
     }
 
     defineComponent() {
-        const component = this.selectedComponent;
-        this.data.component.html = component.html
-        this.data.component.css = component.css
-        this.data.component.script = component.script
-        this.data.component.name = ''
+        this.data = this.selectedComponent;
         this.campaignUpdateTemplate();
     }
 
@@ -92,20 +91,14 @@ export class SiteSidebarComponent implements OnChanges {
     }
 
     async createComponent() {
-        const post = {
-            html: this.data.component.html,
-            css: this.data.component.css,
-            script: this.data.component.script,
+        const body = {
+            ...this.data,
             isPublished: this.componentIsPublished,
-            isTheme: false,
-            name: 'editor',
-            // type: ComponentTypeColumnEnum.DEFAULT,
-            theme: (this.selectedTheme) ? this.selectedTheme.id : null,
-            site: this.data.site.id,
-            page: this.data.id
+            createdAt: new Date().toISOString()
         };
 
         // await this._requestService.requestWithToken('POST', `api/page/component/`, post);
+        this._firebaseDatabaseService.insert('pages', body);
         this.campaignUpdateTemplate();
     }
 
@@ -146,7 +139,15 @@ export class SiteSidebarComponent implements OnChanges {
     }
 
     async getPage() {
-        // const url = `api/page/${this.data.id}`;
+        if (this.data.path) {
+            const result = this._firebaseDatabaseService.where('pages', "path", this.data.path)
+            result.once('value', (snap) => {
 
+                if (snap.val() !== null) {
+                    this.versions = Object.keys(snap.val()).map(item => snap.val()[item]);
+                    console.log(this.versions)
+                }
+            })
+        }
     }
 }

@@ -25,7 +25,7 @@
                         </ng-template>
                     </li>
                     <li [ngbNavItem]="4">
-                        <a ngbNavLink>SCSS</a>
+                        <a ngbNavLink>CSS</a>
                         <ng-template ngbNavContent>
                             <div class="my-2">
                                 <ngx-monaco-editor class="my-code-editor" [options]="cssEditorOptions"
@@ -42,22 +42,12 @@
                             </div>
                         </ng-template>
                     </li>
-                    <li [ngbNavItem]="1" *ngIf="example">
-                        <a ngbNavLink>Data</a>
-                        <ng-template ngbNavContent>
-                            <div class="my-2">
-                                <ngx-monaco-editor class="my-code-editor" [options]="jsonEditorOptions"
-                                    [(ngModel)]="example">
-                                </ngx-monaco-editor>
-                            </div>
-                        </ng-template>
-                    </li>
                     <li [ngbNavItem]="2">
                         <a ngbNavLink>Parâmetros</a>
                         <ng-template ngbNavContent>
                             <div class="my-2">
                                 <ngx-monaco-editor class="my-code-editor" [options]="jsEditorOptions"
-                                    [(ngModel)]="data.parameters">
+                                    [(ngModel)]="data">
                                 </ngx-monaco-editor>
                             </div>
                         </ng-template>
@@ -71,7 +61,7 @@
                                         <label for="formSelectVersion">Version</label>
                                         <select class="form-control" id="formSelectVersion"
                                             [(ngModel)]="selectedComponent" (change)="defineComponent()">
-                                            <option *ngFor="let component of page.components"
+                                            <option *ngFor="let component of versions"
                                                 [ngClass]="{'font-weight-bold': component.isPublished}"
                                                 [ngValue]="component">
                                                 {{component.createdAt | date:'dd/MM/yyyy - HH:mm:ss'}} -
@@ -80,21 +70,10 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <label for="exampleFormControlSelect1">Tema</label>
-                                        <select class="form-control" id="exampleFormControlSelect1"
-                                            [(ngModel)]="selectedTheme" (change)="previewTheme()">
-                                            <option value="">Sem tema</option>
-                                            <option *ngFor="let item of themes" [ngValue]="item">{{item.name}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
                             </div>
                         </ng-template>
                     </li>
-                    <li [ngbNavItem]="7">
+                    <!-- <li [ngbNavItem]="7">
                         <a ngbNavLink>Criar página</a>
                         <ng-template ngbNavContent>
                             <div class="row text-white">
@@ -128,7 +107,7 @@
                                     (click)="createPage()">Criar página</button>
                             </div>
                         </ng-template>
-                    </li>
+                    </li> -->
                 </ul>
                 <div [ngbNavOutlet]="nav"></div>
                 <div class="pb-2 d-flex justify-content-center">
