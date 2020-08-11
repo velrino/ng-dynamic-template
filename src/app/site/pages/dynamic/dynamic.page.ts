@@ -19,6 +19,7 @@ export class SiteDynamicPage implements OnInit {
     style: '',
     script: null,
   }
+  versions: any[] = [];
   show: boolean = false;
   hasPage = false;
   script: any;
@@ -52,6 +53,8 @@ export class SiteDynamicPage implements OnInit {
         this.component.template = data.html;
         this.component.style = data.css;
         this.component.script = (data.script) ? data.script : {}
+        this.versions = Object.keys(snap.val()).map(item => snap.val()[item]);
+
         this.show = true;
 
       }

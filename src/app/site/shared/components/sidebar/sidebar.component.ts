@@ -10,6 +10,7 @@ import { FirebaseDatabaseService } from '../../../../shared/services/firebase/fi
 })
 export class SiteSidebarComponent implements OnChanges {
     @Input() data: any;
+    @Input() versions: any;
     rows = 15;
     show = false;
     saveAsTheme = false;
@@ -27,14 +28,9 @@ export class SiteSidebarComponent implements OnChanges {
     jsonEditorOptions = { theme: 'vs-dark', language: 'json' };
     jsEditorOptions = { theme: 'vs-dark', language: 'json' };
     componentIsPublished: boolean = false;
-    versions: any[] = [];
 
     constructor(private modalService: NgbModal,
         private _firebaseDatabaseService: FirebaseDatabaseService) { }
-
-    ngOnInit() {
-        this.getPage();
-    }
 
     ngOnChanges() {
         this.handleData();
@@ -147,26 +143,14 @@ export class SiteSidebarComponent implements OnChanges {
         if (path !== null) {
             const body = {
                 path,
-                script: {},
-                css: {},
+                script: { lorem: 'ipsum' },
+                css: '// COMMENT',
                 html: `<h1>Nova Página da URL ${path}</h1>`,
                 isPublished: true,
                 createdAt: new Date().toISOString(),
             }
             this._firebaseDatabaseService.insert('pages', body);
             window.location.href = `${window.location.origin}/${path}`
-        }
-    }
-
-    async getPage() {
-        if (this.data.path) {
-            const result = this._firebaseDatabaseService.where('pages', "path", this.data.path)
-            result.once('value', (snap) => {
-
-                if (snap.val() !== null) {
-                    this.versions = Object.keys(snap.val()).map(item => snap.val()[item]);
-                }
-            })
         }
     }
 }
