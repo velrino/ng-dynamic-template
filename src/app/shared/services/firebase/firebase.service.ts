@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 })
 
 export class FirebaseDatabaseService {
-    constructor(private db: AngularFireDatabase) { }
+    constructor(public readonly db: AngularFireDatabase) { }
 
     delete(collection: string, key: string) {
         this.db.list(collection).remove(key)

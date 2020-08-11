@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { SiteComponent } from './site.component';
 import { SiteDynamicPage } from './pages/dynamic/dynamic.page';
 import { SiteSidebarComponent } from '../site/shared/components/sidebar/sidebar.component';
 
 const routes: Routes = [
     {
-        path: '', 
+        path: '',
         children: [
+            { path: '', component: SiteComponent },
             { path: ':campaign', component: SiteDynamicPage },
         ]
     },
@@ -15,6 +17,7 @@ const routes: Routes = [
 ];
 
 export const SitePages = [
+    SiteComponent,
     SiteSidebarComponent,
     SiteDynamicPage
 ];

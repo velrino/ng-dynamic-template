@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { SitePages, SiteRoutingModule } from './site.routing.module';
 import { SafePipe } from '../shared/pipes/safe/safe.pipe';
 import { DynamicTemplateDirective } from '../shared/directives/dynamic-component/dynamic-component.directive';
+import { FirebaseDatabaseService } from '../shared/services/firebase/firebase.service';
 
 @NgModule({
     declarations: [
@@ -38,5 +39,8 @@ import { DynamicTemplateDirective } from '../shared/directives/dynamic-component
         NgbModule,
         FormsModule
     ],
+    providers: [
+        FirebaseDatabaseService
+    ]
 })
 export class SiteModule { }
